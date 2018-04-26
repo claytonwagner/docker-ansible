@@ -14,10 +14,13 @@ RUN apt-get update -qy && \
 	apt-get update -qy && \
 	apt-get install -qy ansible
 
-	# Add volume for Ansible playbooks
-	VOLUME /ansible
-	WORKDIR /ansible
+# Copy baked in playbooks
+COPY ansible /ansible
 
-	# Entrypoint
-	ENTRYPOINT ["ansible-playbook"]
-	CMD ["site.yml"]
+# Add volume for Ansible playbooks
+VOLUME /ansible
+WORKDIR /ansible
+
+# Entrypoint
+ENTRYPOINT ["ansible-playbook"]
+CMD ["site.yml"]
